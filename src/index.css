@@ -553,6 +553,10 @@ body {
     width: 120px;
     height: 140px;
   }
+
+  .page-recipe-details {
+    gap: 48px;
+  }
 }
 
 @media (max-width: 670px) {
@@ -592,5 +596,9 @@ body {
   .cards-recipes {
     padding-top: 24px;
     padding-bottom: 20px;
+  }
+
+  .page-recipe h1, .page-results h1 {
+    font-size: 24px;
   }
 }
