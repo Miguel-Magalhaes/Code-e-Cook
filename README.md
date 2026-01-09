@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+# Code & Cook 🍳
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> Onde o código encontra o sabor. Um projeto de receitas desenvolvido para explorar o ecossistema React.
 
-## Available Scripts
+![Status](https://img.shields.io/badge/Status-Concluído-brightgreen)
+![React](https://img.shields.io/badge/React-18-blue)
 
-In the project directory, you can run:
+## 💻 Sobre o Projeto
 
-### `npm start`
+O **Code & Cook** é uma aplicação web de busca e visualização de receitas culinárias. O objetivo principal deste projeto foi aprofundar conhecimentos em **React.js**, **React Router**, **Hooks** e, principalmente, o **consumo e tratamento de APIs externas**.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+A aplicação consome a API pública [TheMealDB](https://www.themealdb.com/).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## ⚙️ Funcionalidades
 
-### `npm test`
+- 🔍 **Busca Inteligente:** Pesquisa de receitas por nome (aceita termos em português).
+- 📂 **Categorias:** Filtragem por categorias (Massas, Carnes, Vegetarianos, etc.) com navegação estilo app no mobile.
+- 📃 **Detalhes da Receita:** Exibição de foto, ingredientes, medidas e modo de preparo.
+- 🎲 **Surpreenda-me:** Botão que busca uma receita aleatória.
+- 📱 **Design Responsivo:** Layout totalmente adaptável para Mobile e Desktop.
+- 🎨 **UI Dinâmica:** Animações de carregamento (LottieFiles), tratamento de imagens e feedback visual de erros.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🧠 O Grande Desafio: Internacionalização e Estratégia
 
-### `npm run build`
+Um dos maiores desafios técnicos deste projeto foi a limitação da API **TheMealDB**, que fornece dados **apenas em inglês**.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Para melhorar a UX (Experiência do Usuário) para brasileiros, implementei uma camada de serviço de tradução que atua em dois momentos:
+1.  **Na Busca:** Traduz o termo digitado em português para inglês antes de consultar a API.
+2.  **Na Vitrine:** Traduz os títulos das receitas para facilitar a identificação visual nos cards.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### ⚖️ Decisão de Arquitetura (Trade-off)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Como utilizo serviços de tradução gratuitos (API MyMemory) que possuem limites de requisição (*Rate Limiting*), foi necessário tomar uma decisão estratégica sobre o escopo da tradução:
 
-### `npm run eject`
+* **O que é traduzido:** Termos de busca e Títulos das receitas (foco na descoberta/discovery).
+* **O que é mantido em Inglês:** Lista de ingredientes e Modo de preparo.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Por que?** Traduzir blocos grandes de texto (como as instruções de preparo) consumiria a cota da API de tradução quase instantaneamente, inviabilizando o uso do app. Optei por manter a integridade dos dados originais nestes campos, garantindo que o usuário sempre tenha acesso à receita técnica correta, mesmo que precise traduzir o passo a passo externamente.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 🛡️ Tratamento de Erros e Graceful Degradation
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Desenvolvi uma estratégia de **Graceful Degradation** (Degradação Graciosa) para casos onde a API de tradução falhe ou atinja o limite:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **Cenário Ideal:** O usuário busca em PT-BR -> O sistema traduz -> A busca ocorre -> Os resultados aparecem em PT-BR.
+- **Cenário de Limite/Erro:** Se a API de tradução falhar:
+    1. O sistema **não quebra**.
+    2. O termo original é utilizado na busca automaticamente.
+    3. Um **aviso amigável (UI Warning)** é exibido ao usuário, sugerindo a busca pelo termo em inglês (ex: "Pie", "Cake").
+    
+Isso garante que, mesmo com falhas em serviços externos, o usuário continue conseguindo utilizar a aplicação.
 
-## Learn More
+## 🛠️ Tecnologias Utilizadas
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **React.js** (useState, useEffect, Custom Hooks)
+- **React Router Dom** (Navegação SPA)
+- **CSS3** (Variables, Flexbox, Grid, Media Queries, Glassmorphism)
+- **Fetch API** (Consumo assíncrono e tratamento de promessas)
+- **Lottie React** (Animações vetoriais JSON)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🚀 Como rodar o projeto
 
-### Code Splitting
+```bash
+# Clone este repositório
+$ git clone [https://github.com/SEU_USER/Code-e-Cook.git](https://github.com/SEU_USER/Code-e-Cook.git)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# Acesse a pasta do projeto no terminal/cmd
+$ cd Code-e-Cook
 
-### Analyzing the Bundle Size
+# Instale as dependências
+$ npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+# Execute a aplicação em modo de desenvolvimento
+$ npm start
+```
 
-### Making a Progressive Web App
+## 👨‍💻 Autor
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Desenvolvido por Miguel Magalhães
 
-### Advanced Configuration
+[Linkedin](https://www.linkedin.com/in/miguel-magalh%C3%A3es-ads/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Github](https://github.com/Miguel-Magalhaes)
