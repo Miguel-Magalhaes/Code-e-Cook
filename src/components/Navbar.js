@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import logo from '../assets/logo-codeCook.png';
+import logo from '../assets/logo-codeCook.svg';
 
 const Navbar = () => {
     return (
